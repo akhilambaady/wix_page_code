@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check out our Products</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        		body {
+            font-family: Arial, sans-serif;
+            background-color: Black;
+            margin: 0;
+            padding: 0;
+            color: white;
+            
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: left;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+           font-size: 42px;
+           color: white;
+           margin: 15px;
+        }
+
+        .header p {
+           font-size: 22px;
+           color: white;
+           margin: 17px;
+        }
+
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .product-item {
+            background-color: #3b414b;
+            color: #fff;
+            width: 45%;
+            height: 256px;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .product-item h2 {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 10px;
+			font-weight:bold;
+        }
+		.h3, h3 {
+		
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 10px;
+			font-weight:bold;
+			padding-left :3%;
+			text-align :center;
+        }
+
+        .product-item p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .product-item {
+                width: 100%;
+                height: auto;
+            }
+        }
+        .pdf-upload-section {
+            display: none;
+            margin-top: 20px;
+        }
+        .label-style {
+            margin-bottom: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+		
+		.pdf-upload-section body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px;
+        padding: 20px;
+        background-color: black;
+        color: white; /* Optional: To change the text color to white for better contrast */
+         overflow: hidden;
+    }
+
+    .pdf-upload-section .container {
+        display: flex;
+        width: 100%;
+        max-width: 1200px;
+        border: 1px solid #ccc;
+    }
+
+    .pdf-upload-section .first-section,
+    .pdf-upload-section .second-section {
+        flex: 1;
+        padding: 20px;
+		background-color : #192a3d;
+    }
+
+    .pdf-upload-section .file-upload {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pdf-upload-section .file-preview {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 100%;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #3b414b;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: auto; /* Add this to ensure scrollability if content overflows */
+}
+
+.pdf-upload-section canvas {
+    margin-bottom: 10px; /* Add space between canvases */
+    width: 90%; /* Adjust the canvas size to fit within the preview container */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px; /* Optional: Round the corners of the canvas */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Add subtle shadow to each canvas */
+}
+
+    .pdf-upload-section .file-name {
+        margin-top: 10px;
+        font-weight: bold;
+    }
+
+    .pdf-upload-section .submit-button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    .pdf-upload-section .hidden {
+        display: none;
+    }
+
+    .pdf-upload-section .form-container {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+
+    .pdf-upload-section .form-container div {
+        margin-bottom: 10px;
+    }
+
+    .pdf-upload-section .form-container label {
+        font-weight: bold;
+    }
+
+    .pdf-upload-section .update-button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    .pdf-upload-section .label-style {
+        display: flex;
+        align-items: left;
+        margin-bottom: 10px;
+        padding-left: 15px;
+        padding-right: 10px;
+    }
+
+    .pdf-upload-section .label-style label {
+        width: 100px;
+        text-align: left;
+        margin-right: 10px;
+    }
+
+    .pdf-upload-section .label-style input {
+        flex-grow: 1;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+    </style>
+	
+	
+	<style>
+       .chatbot-assistant-section body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e0e0e0;
+        }
+  
+        .chat-header {
+            background: #192a3d;
+            color: #ffffff;
+            padding: 12px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+		.chat-messages {
+            flex: 1;
+            padding: 10px;
+            background: #7ca085ad;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+       .chat-message-container {
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 10px;
+		}
+		.chat-message {
+            padding: 8px;
+            border-radius: 4px;
+            max-width: 75%;
+            word-wrap: break-word;
+        }
+        .chat-message.sent {
+            background: #4b8938;
+            margin-left: auto;
+        }
+		.chat-message.received {
+            background: #20385f;
+        }
+        .chat-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 0 10px;
+        }
+        .chat-footer {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: #f0f0f0;
+        }
+		 .chat-footer input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #b0b0b0;
+            border-radius: 4px 0 0 4px;
+        }
+        .chat-footer button {
+            padding: 10px;
+            border: none;
+            background: #4a4a4a;
+            color: #ffffff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        .chat-footer .file-options {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+        .chat-footer .file-options button {
+            padding: 8px;
+            border: none;
+            background: #4a4a4a;
+            color: #ffffff;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        .chat-toggle-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px;
+            border: none;
+            background: #4a4a4a;
+            color: #ffffff;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            background: #ffffff;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .typing-indicator img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .typing-indicator .dot {
+            width: 8px;
+            height: 8px;
+            background-color: #888888;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: blink 1.4s infinite both;
+        }
+        .typing-indicator .dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+        .typing-indicator .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .typing-indicator .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes blink {
+            0%, 80%, 100% {
+                opacity: 0;
+            }
+            40% {
+                opacity: 1;
+            }
+        }
+        .suggested-actions {
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            background: #f0f0f0;
+            border-top: 1px solid #b0b0b0;
+        }
+        .suggested-action {
+            padding: 8px 12px;
+            margin: 0 5px;
+            background: #4a4a4a;
+            color: #ffffff;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Check out our Products</h1>
+        <p>Functionality You Will Love</p>
+    </div>
+
+    <div class="products">
+        <div class="product-item" style="cursor: pointer;" onclick="window.open('https://2cfurniture.com/', '_blank');">
+            <h2>Appointment Management System</h2>
+            <p>We would not be who we are without our eco-friendly design...</p>
+        </div>
+
+        <div class="product-item" id="weightEstimator">
+            <h2>AI Weight Estimator</h2>
+            <p>Our customers deserve the highest level of support...</p>
+        </div>
+
+        <div class="product-item" id="chatbotAssistant">
+            <h2>AI Chatbot Assistant</h2>
+            <p>In today's globalized world, chances are you are interacting...</p>
+        </div>
+
+        <div class="product-item" id="pdfConverter">
+            <h2>PDF to CSV Converter</h2>
+            <p>We are constantly working to improve our offerings...</p>
+        </div>
+    </div>
+
+    <!-- PDF Upload Section -->
+    <div class="pdf-upload-section" id="pdfUploadSection">
+    <div class="header-section">
+        <h2>Upload PDF File</h2>
+    </div>
+    <div class="container mt-5">
+        <div class="first-section text-center">
+            <div class="file-upload">
+                <h5 class="header">Click here to Upload your Works/Purchase Order</h5>
+                <input type="file" id="fileInput" accept="application/pdf">
+                <div class="file-preview hidden" id="filePreview"></div>
+                <button class="submit-button btn btn-primary" id="submitButton" >Submit</button>
+            </div>
+        </div>
+        <div class="second-section">
+            <div class="text-variable hidden" id="textVariable"></div>
+            <div class="form-container hidden" id="formContainer">
+                <div class="label-style">
+                    <label for="client">Client:</label>
+                    <input type="text" id="client">
+                </div>
+                <div class="label-style">
+                    <label for="clientNo">Client No:</label>
+                    <input type="text" id="clientNo">
+                </div>
+                <div class="label-style">
+                    <label for="property">Property:</label>
+                    <input type="text" id="property">
+                </div>
+                <div class="label-style">
+                    <label for="instructedBy">Instructed By:</label>
+                    <input type="text" id="instructedBy">
+                </div>
+                <div class="label-style">
+                    <label for="date">Date:</label>
+                    <input type="text" id="date">
+                </div>
+                <div class="label-style">
+                    <label for="worksRef">Works ref:</label>
+                    <input type="text" id="worksRef">
+                </div>
+                <div class="label-style">
+                    <label for="purchaseOrder">Purchase order:</label>
+                    <input type="text" id="purchaseOrder">
+                </div>
+                <div class="label-style">
+                    <label for="supplierAccount">Supplier a/c no:</label>
+                    <input type="text" id="supplierAccount">
+                </div>
+                <div class="label-style">
+                    <label for="instruction">Instruction:</label>
+                    <input type="text" id="instruction">
+                </div>
+                <div class="label-style">
+                    <label for="access">Access:</label>
+                    <input type="text" id="access">
+                </div>
+                <div class="label-style">
+                    <label for="tenantOccupant">Tenant / Occupant:</label>
+                    <input type="text" id="tenantOccupant">
+                </div>
+                <div>
+                    <p><label for="contactDetails">Contact Details</label></p>
+                    <div class="label-style">
+                        <label for="contactName">Name:</label>
+                        <input type="text" id="contactName">
+                    </div>
+                    <div class="label-style">
+                        <label for="contactPhone">Phone:</label>
+                        <input type="text" id="contactPhone">
+                    </div>
+                    <div class="label-style">
+                        <label for="contactEmail">Email:</label>
+                        <input type="text" id="contactEmail">
+                    </div>
+                </div>
+                <div class="label-style">
+                    <label for="chargeTo">Please Charge To:</label>
+                    <input type="text" id="chargeTo">
+                </div>
+               
+                <button class="download-csv-button btn btn-primary" id="downloadCsvButton">Download as CSV</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="overlay">
+        <div></div>
+    </div>
+</div>
+
+    <!-- AI Weight Estimator Section -->
+    <div class="weight-estimator-section hidden" id="weightEstimatorSection">
+        <div class="header-section">
+            <h3>Upload your image for Weight calculation</h3>
+        </div>
+        <div class="container mt-5">
+            <div class="file-upload">
+                <p>Click here to Upload your Image</p>
+                <input type="file" id="imageInput" accept="image/*">
+                <div class="image-preview hidden" id="imagePreview"></div>
+                <button class="submit-button btn btn-primary" id="imageSubmitButton">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Chatbot Assistant Section -->
+    <div class="chatbot-assistant-section hidden" id="chatbotAssistantSection">
+        <div class="header-section">
+            <h3>AI Chatbot Assistant</h3>
+        </div>
+        <div class="container mt-5">
+            <p>This section will guide you through setting up your AI Chatbot Assistant.</p>
+            <!-- Additional content related to AI Chatbot Assistant -->
+			
+			<div class="chat-widget" id="chat-widget">
+        <div class="chat-header">Chat</div>
+        <div class="chat-messages" id="chat-messages"></div>
+        <div class="typing-indicator" id="typing-indicator" style="display: none;">
+            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="suggested-actions" id="suggested-actions">
+            <button class="suggested-action" onclick="sendSuggestedMessage('Hello')">Hello</button>
+            <button class="suggested-action" onclick="sendSuggestedMessage('How can I help you?')">How can I help you?</button>
+            <button class="suggested-action" onclick="sendSuggestedMessage('Goodbye')">Goodbye</button>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="message-input" placeholder="Type a message...">
+            <button onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+            <div class="file-options">
+                <label for="file-input" style="cursor: pointer;">
+                    <i class="fas fa-plus"></i>
+                </label>
+                <input type="file" id="file-input" style="display: none;" multiple onchange="handleFileUpload(event)">
+            </div>
+        </div>
+    </div>
+    <button class="chat-toggle-btn" onclick="startChat()">
+        <i class="fa fa-comments"></i>
+    </button>
+        </div>
+    </div>
+
+    <div id="overlay">
+        <div></div>
+    </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+<script>
+    const pdfjsLib = window['pdfjs-dist/build/pdf'];
+    let pdfContent = '';
+
+    async function pdfToText(pdfData) {
+        const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+        let text = '';
+
+        for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const textContent = await page.getTextContent();
+            const pageText = textContent.items.map(item => item.str).join(' ');
+            text += `${pageText}\n\n`;
+        }
+
+        return text;
+    }
+
+    document.getElementById('fileInput').addEventListener('change', async (event) => {
+        const file = event.target.files[0];
+        if (file && file.type === 'application/pdf') {
+            const reader = new FileReader();
+            reader.onload = async function (e) {
+                const pdfData = new Uint8Array(e.target.result);
+                pdfContent = await pdfToText(pdfData);
+
+                // Hide the extracted PDF content text
+                const textVariableElement = document.getElementById('textVariable');
+                textVariableElement.classList.add('hidden');
+
+                // Generate PDF preview
+const previewElement = document.getElementById('filePreview');
+previewElement.innerHTML = '';
+const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+
+for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+    const page = await pdf.getPage(pageNumber);
+    const viewport = page.getViewport({ scale: 1.5 }); // Adjust scale if needed
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+
+    const renderContext = {
+        canvasContext: context,
+        viewport: viewport,
+    };
+
+    await page.render(renderContext).promise;
+
+                    // Append the canvas to the preview element
+                    previewElement.appendChild(canvas);
+                }
+                previewElement.classList.remove('hidden');
+            };
+            reader.readAsArrayBuffer(file);
+        } else {
+            alert('Please upload a valid PDF file.');
+        }
+    });
+
+    document.getElementById('submitButton').addEventListener('click', () => {
+        const textVariableElement = document.getElementById('textVariable');
+        textVariableElement.innerText = `PDF Content:\n${pdfContent}`;
+        textVariableElement.classList.remove('hidden');
+
+        document.getElementById('formContainer').classList.remove('hidden');
+    });
+
+    document.getElementById('downloadCsvButton').addEventListener('click', () => {
+        const data = {
+            client: document.getElementById('client').value,
+            clientNo: document.getElementById('clientNo').value,
+            property: document.getElementById('property').value,
+            instructedBy: document.getElementById('instructedBy').value,
+            date: document.getElementById('date').value,
+            worksRef: document.getElementById('worksRef').value,
+            purchaseOrder: document.getElementById('purchaseOrder').value,
+            supplierAccount: document.getElementById('supplierAccount').value,
+            instruction: document.getElementById('instruction').value,
+            access: document.getElementById('access').value,
+            tenantOccupant: document.getElementById('tenantOccupant').value,
+            contactName: document.getElementById('contactName').value,
+            contactPhone: document.getElementById('contactPhone').value,
+            contactEmail: document.getElementById('contactEmail').value,
+            chargeTo: document.getElementById('chargeTo').value,
+            pdfContent: pdfContent
+        };
+
+        const doc = new jsPDF();
+        doc.text(JSON.stringify(data, null, 2), 10, 10);
+        doc.save('form-details.pdf');
+    });
+
+    document.getElementById('downloadCsvButton').addEventListener('click', () => {
+        const data = [
+            ['Client', document.getElementById('client').value],
+            ['Client No', document.getElementById('clientNo').value],
+            ['Property', document.getElementById('property').value],
+            ['Instructed By', document.getElementById('instructedBy').value],
+            ['Date', document.getElementById('date').value],
+            ['Works ref', document.getElementById('worksRef').value],
+            ['Purchase order', document.getElementById('purchaseOrder').value],
+            ['Supplier a/c no', document.getElementById('supplierAccount').value],
+            ['Instruction', document.getElementById('instruction').value],
+            ['Access', document.getElementById('access').value],
+            ['Tenant / Occupant', document.getElementById('tenantOccupant').value],
+            ['Contact Name', document.getElementById('contactName').value],
+            ['Contact Phone', document.getElementById('contactPhone').value],
+            ['Contact Email', document.getElementById('contactEmail').value],
+            ['Please Charge To', document.getElementById('chargeTo').value],
+            ['PDF Content', pdfContent]
+        ];
+
+        let csvContent = "data:text/csv;charset=utf-8,";
+        data.forEach(function (rowArray) {
+            let row = rowArray.join(",");
+            csvContent += row + "\r\n";
+        });
+
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "form-details.csv");
+        document.body.appendChild(link);
+        link.click();
+    });
+    // Handle product section visibility
+    document.getElementById('pdfConverter').addEventListener('click', () => {
+        document.getElementById('pdfUploadSection').style.display = 'block';
+        document.getElementById('weightEstimatorSection').style.display = 'none';
+        document.getElementById('chatbotAssistantSection').style.display = 'none';
+        document.getElementById('pdfUploadSection').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    document.getElementById('weightEstimator').addEventListener('click', () => {
+        document.getElementById('weightEstimatorSection').style.display = 'block';
+        document.getElementById('pdfUploadSection').style.display = 'none';
+        document.getElementById('chatbotAssistantSection').style.display = 'none';
+        document.getElementById('weightEstimatorSection').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    document.getElementById('chatbotAssistant').addEventListener('click', () => {
+        document.getElementById('chatbotAssistantSection').style.display = 'block';
+        document.getElementById('pdfUploadSection').style.display = 'none';
+        document.getElementById('weightEstimatorSection').style.display = 'none';
+        document.getElementById('chatbotAssistantSection').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Additional script for image preview in Weight Estimator
+    document.getElementById('imageInput').addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const previewElement = document.getElementById('imagePreview');
+                previewElement.innerHTML = `<img src="${e.target.result}" width="100%" alt="Image Preview">`;
+                previewElement.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        } else {
+            alert('Please upload a valid image file.');
+        }
+    });
+</script>
+<script>
+        let sessionId = null;
+        let conversationId = null;
+
+        function startChat() {
+            const chatPopover = document.getElementById('chat-widget');
+            const isVisible = chatPopover.style.display === 'flex';
+            chatPopover.style.display = isVisible ? 'none' : 'flex';
+
+            if (!isVisible) {
+                showSuggestedActions();
+            } else {
+                hideSuggestedActions();
+            }
+            document.getElementById('message-input').disabled = false;
+            document.querySelector('.chat-footer button').disabled = false;
+            document.querySelector('.chat-footer input').focus();
+        }
+        
+        function sendMessage() {
+            const messageInput = document.getElementById('message-input');
+            const messageText = messageInput.value;
+            if (messageText.trim() === '') return;
+
+            displayMessage('User', messageText, 'sent');
+            showTypingIndicator();
+
+            setTimeout(() => {
+                hideTypingIndicator();
+                displayMessage('Bot', 'Hi there', 'received');
+            }, 1000);
+
+            messageInput.value = '';
+        }
+
+       
+
+        function sendSuggestedMessage(message) {
+            displayMessage('User', message, 'sent');
+            showTypingIndicator();
+
+            setTimeout(() => {
+                hideTypingIndicator();
+                displayMessage('Bot', 'Hi there', 'received');
+            }, 1000);
+        }
+
+        function displayMessage(sender, message, type) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageContainer = document.createElement('div');
+            messageContainer.className = 'chat-message-container';
+
+            const messageElement = document.createElement('div');
+            messageElement.className = `chat-message ${type}`;
+            messageElement.innerHTML = message;
+
+            const avatar = document.createElement('img');
+            avatar.className = 'chat-avatar';
+            if (type === 'sent') {
+                avatar.src = 'https://www.w3schools.com/w3images/avatar2.png'; // Dummy avatar for sender
+                messageContainer.appendChild(messageElement);
+                messageContainer.appendChild(avatar);
+            } else {
+                avatar.src = 'https://www.w3schools.com/howto/img_avatar.png'; // Dummy avatar for receiver
+                messageContainer.appendChild(avatar);
+                messageContainer.appendChild(messageElement);
+            }
+
+            chatMessages.appendChild(messageContainer);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const typingIndicator = document.getElementById('typing-indicator');
+            typingIndicator.style.display = 'flex';
+        }
+
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typing-indicator');
+            typingIndicator.style.display = 'none';
+        }
+
+        function showSuggestedActions() {
+            const suggestedActions = document.getElementById('suggested-actions');
+            suggestedActions.style.display = 'flex';
+        }
+
+        function hideSuggestedActions() {
+            const suggestedActions = document.getElementById('suggested-actions');
+            suggestedActions.style.display = 'none';
+        }
+
+        function handleFileUpload(event) {
+            const files = event.target.files;
+            if (files.length > 0) {
+                for (const file of files) {
+                    alert('File uploaded: ' + file.name);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
